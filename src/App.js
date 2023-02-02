@@ -14,9 +14,9 @@ class App extends React.Component {
       .get("https://newsapi.org/v2/everything?q=ai&apiKey=5f1cb51705b04ebfb27f12dd322cafcc")
       .then(response => {
         return response.data.articles.map(article => ({
-          date: `${article.publishedAt}`,
+          author: `${article.author}`,
           title: `${article.title}`,
-          url: `${article.url}`,
+          content: `${article.content}`,
           description: `${article.description}`
         }));
       })
@@ -38,17 +38,23 @@ class App extends React.Component {
     console.log(articles);
     return (
       <React.Fragment>
+        <div className="title">Article List</div>
+        <div className="border"></div>
         <div className="container">
           {!isLoading ? (
             articles.map(article => {
-              const { date, title, url, description } = article;
+              const { author, title, content, description } = article;
               return (
                 <div className="content">
                   <div className="cards">
-                    <p>{date}</p>
-                    <p>{title}</p>
-                    <p>{url}</p>
-                    <p>{description}</p>
+                    <div className="sub-title">Author</div>
+                    <div className="desc">{author}</div>
+                    <div className="sub-title">Title</div>
+                    <div className="desc truncate1">{title}</div>
+                    <div className="sub-title">Content</div>
+                    <div className="desc truncate2">{content}</div>
+                    <div className="sub-title">Description</div>
+                    <div className="desc truncate2">{description}</div>
                   </div>
                 </div>
               );
